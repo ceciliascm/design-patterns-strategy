@@ -1,15 +1,19 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import strategy.*;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        PaymentContext context = new PaymentContext();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        // Pagando com cartão
+        context.setPaymentStrategy(new CreditCardPayment("1234-5678-9012-3456"));
+        context.executePayment(250.00);
+
+        // Pagando com PayPal
+        context.setPaymentStrategy(new PaypalPayment("teste@exemplo.com"));
+        context.executePayment(99.90);
+
+        // Pagando com Pix
+        context.setPaymentStrategy(new PixPayment("meuemail@pix.com"));
+        context.executePayment(50.00);
     }
 }
